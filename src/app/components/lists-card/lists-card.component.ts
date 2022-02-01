@@ -1,6 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../../interface/Task';
 
+const TITLE_MAPPINGS = {
+  'in-progress': 'In Progress',
+  todos: 'Todos',
+  done: 'Finished',
+};
 @Component({
   selector: 'app-lists-card',
   templateUrl: './lists-card.component.html',
@@ -15,6 +20,6 @@ export class ListsCardComponent implements OnInit {
   ngOnInit() {}
 
   getTitle (type) {
-    return type === 'in-progress' ? 'In Progress' : 'Todos';
+    return TITLE_MAPPINGS[type];
   }
 }

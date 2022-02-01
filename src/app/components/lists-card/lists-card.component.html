@@ -10,7 +10,7 @@
           <h2><strong>Pokémon Yellow</strong></h2>
           <h3>Date</h3>
           <br>
-          <p>Mark as:
+          <p *ngIf="type !== 'done'">Mark as:
             <ion-button
               *ngIf="type !== 'in-progress'"
               color="tertiary"
@@ -23,7 +23,7 @@
             </ion-button>
           </p>
         </ion-label>
-        <div slot="end">
+        <div *ngIf="type !== 'done'" slot="end">
           <ion-button fill="clear">
             <ion-icon name="pencil-outline"></ion-icon>
           </ion-button>
