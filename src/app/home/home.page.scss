@@ -25,3 +25,13 @@
 #container a {
   text-decoration: none;
 }
+
+.header-title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media screen and (max-width: 1000px) {
+  #container {
+    top: 60%;
+  }
+}

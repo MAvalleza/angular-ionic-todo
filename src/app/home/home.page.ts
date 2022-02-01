@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { AngularFirestore } from  '@angular/fire/compat/firestore';
 import { TaskModalComponent } from '../components/task-modal/task-modal.component';
 
@@ -14,7 +14,8 @@ export class HomePage implements OnInit {
   ongoingTasks: Object[];
   finishedTasks: Object[];
   constructor(public modalController: ModalController, private store: AngularFirestore,
-    public loadingController: LoadingController) {}
+    public loadingController: LoadingController,
+    public toastController: ToastController) {}
 
   ngOnInit() {
     this.getAllTasks();
@@ -40,8 +41,16 @@ export class HomePage implements OnInit {
     try {
       this.presentLoading();
       await this.store.collection('todos').add(task);
+      this.presentToast({
+        message: 'Task added successfully!',
+        color: 'success',
+      });
     } catch (e) {
       console.error(e);
+      this.presentToast({
+        message: 'There was an error in adding.',
+        color: 'danger',
+      });
     } finally {
       this.dismissLoading();
     }
@@ -52,8 +61,16 @@ export class HomePage implements OnInit {
       console.log('task id to delete', taskId);
       this.presentLoading();
       await this.store.collection('todos').doc(taskId).delete();
+      this.presentToast({
+        message: 'Task deleted successfully!',
+        color: 'success',
+      });
     } catch (e) {
       console.error(e);
+      this.presentToast({
+        message: 'There was an error in deleting.',
+        color: 'danger',
+      });
     } finally {
       this.dismissLoading();
     }
@@ -72,8 +89,16 @@ export class HomePage implements OnInit {
     try {
       this.presentLoading();
       await this.store.collection('todos').doc(taskId).update(taskData);
+      this.presentToast({
+        message: 'Task updated!',
+        color: 'success',
+      });
     } catch (e) {
       console.error(e);
+      this.presentToast({
+        message: 'Could not update task',
+        color: 'danger',
+      });
     } finally {
       this.dismissLoading();
     }
@@ -112,5 +137,14 @@ export class HomePage implements OnInit {
 
   async dismissLoading () {
     await this.loadingController.dismiss();
+  }
+
+  async presentToast ({ message, color }) {
+    const toast = await this.toastController.create({
+      message,
+      color,
+      duration: 2000
+    });
+    toast.present();
   }
 }
