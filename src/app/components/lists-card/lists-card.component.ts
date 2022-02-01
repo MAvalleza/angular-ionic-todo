@@ -8,10 +8,13 @@ import { Task } from '../../interface/Task';
 })
 export class ListsCardComponent implements OnInit {
   @Input () taskItems: Task[];
-  @Input () title: string;
+  @Input () type: string;
   @Input () color: string;
   constructor() { }
 
   ngOnInit() {}
 
+  getTitle (type) {
+    return type === 'in-progress' ? 'In Progress' : 'Todos';
+  }
 }

@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-header [color]="color">
-    <ion-card-title>{{ title }}</ion-card-title>
+    <ion-card-title>{{ getTitle(type) }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <!-- TODO: Ngfor -->
@@ -11,7 +11,12 @@
           <h3>Date</h3>
           <br>
           <p>Mark as:
-            <ion-button color="tertiary" size="small" fill="outline" shape="round">Doing</ion-button>
+            <ion-button
+              *ngIf="type !== 'in-progress'"
+              color="tertiary"
+              size="small" fill="outline"
+              shape="round"
+            >In Progress</ion-button>
             <ion-button color="success" size="small" fill="solid" shape="round">
               <ion-icon name="checkmark-outline"></ion-icon>
               <span>Done</span>
