@@ -5,7 +5,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ModalController, IonDatetime } from '@ionic/angular';
-import { AngularFirestore } from  '@angular/fire/compat/firestore';
 import { format, parseISO } from 'date-fns';
 
 const TOOLBAR_COLORS = {
@@ -28,7 +27,7 @@ export class TaskModalComponent implements OnInit {
   date: any;
   
   formattedDate: string = '';
-  constructor(public modalController: ModalController, private store: AngularFirestore) { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {}
 
@@ -39,16 +38,7 @@ export class TaskModalComponent implements OnInit {
       ...this.mode === 'add' && { status: 'pending' },
       date: new Date(this.date),
     };
-    console.log('submit data', data);
-    this.createTask(data);
-  }
-  async createTask (task) {
-    try {
-      await this.store.collection('todos').add(task);
-      this.dismiss();
-    } catch (e) {
-      console.error(e);
-    }
+    this.dismiss(data);
   }
   onDateChange (dateValue) {
     this.formattedDate = this.formatDate(dateValue);
@@ -57,10 +47,14 @@ export class TaskModalComponent implements OnInit {
   formatDate(value: string) {
     return format(parseISO(value), 'MMM dd, yyyy');
   }
-  async dismiss () {
-    await this.modalController.dismiss({
-      'dismissed': true
-    });
+  dismiss (task) {
+    if (task) {
+      this.modalController.dismiss({
+        mode: this.mode,
+        taskData: task,
+      });
+    }
+    this.modalController.dismiss();
   }
   getToolbarColor (mode) {
     return TOOLBAR_COLORS[mode];

@@ -36,6 +36,17 @@ export class HomePage implements OnInit {
     this.dismissLoading();
   }
 
+  async createTask (task) {
+    try {
+      this.presentLoading();
+      await this.store.collection('todos').add(task);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.dismissLoading();
+    }
+  }
+
   /**
    * 
    * @param mode - 'add' | 'edit'
@@ -49,7 +60,10 @@ export class HomePage implements OnInit {
       backdropDismiss: false,
       swipeToClose: false,
     });
-    return await modal.present();
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data?.mode === 'add') this.createTask(data.taskData);
   }
 
   async presentLoading () {
