@@ -28,6 +28,7 @@
             [taskItems]="pendingTasks"
             (onDelete)="deleteTask($event)"
             (onEdit)="editTask($event)"
+            (onUpdateStatus)="updateStatus($event)"
           ></app-lists-card>
         </ion-col>
         <ion-col>
@@ -37,6 +38,7 @@
             [taskItems]="ongoingTasks"
             (onDelete)="deleteTask($event)"
             (onEdit)="editTask($event)"
+            (onUpdateStatus)="updateStatus($event)"
           >
           </app-lists-card>
         </ion-col>
@@ -45,6 +47,7 @@
             color="success"
             type="done"
             [taskItems]="finishedTasks"
+            (onDelete)="deleteTask($event)"
           >
           </app-lists-card>
         </ion-col>

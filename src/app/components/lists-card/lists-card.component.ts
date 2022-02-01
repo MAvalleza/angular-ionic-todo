@@ -16,16 +16,24 @@ export class ListsCardComponent implements OnInit {
   @Input () type: string;
   @Input () color: string;
   @Output () onDelete: EventEmitter<String> = new EventEmitter();
-  @Output () onEdit: EventEmitter<String> = new EventEmitter();
+  @Output () onEdit: EventEmitter<any> = new EventEmitter();
+  @Output () onUpdateStatus: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {}
 
   onDeleteTask (taskId) {
+    console.log('delete id', taskId);
     this.onDelete.emit(taskId);
   }
   onEditTask (task) {
     this.onEdit.emit(task);
+  }
+  onStatusChange (taskId, status) {
+    this.onUpdateStatus.emit({
+      updateId: taskId,
+      status,
+    });
   }
   getTitle (type) {
     return TITLE_MAPPINGS[type];

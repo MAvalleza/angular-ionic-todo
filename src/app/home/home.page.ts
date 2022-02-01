@@ -63,6 +63,11 @@ export class HomePage implements OnInit {
     this.openTaskModal('edit', task);
   }
 
+  updateStatus (payload) {
+    const { updateId, status } = payload;
+    this.updateTask(updateId, { status });
+  }
+
   async updateTask (taskId, taskData) {
     try {
       this.presentLoading();

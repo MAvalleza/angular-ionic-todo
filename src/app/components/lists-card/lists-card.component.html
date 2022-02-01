@@ -6,6 +6,9 @@
     <!-- TODO: Ngfor -->
     <ion-list>
       <ion-item *ngFor="let task of taskItems">
+        <div *ngIf="type === 'done'" slot="start">
+          <ion-icon style="color: green;" name="checkmark-outline" size="large"></ion-icon>
+        </div>
         <ion-label>
           <h2><strong>{{ task.name }}</strong></h2>
           <h3><ion-text color="danger">Due Date:</ion-text> {{ formatDate(task.date) }}</h3>
@@ -17,23 +20,27 @@
               color="tertiary"
               size="small" fill="outline"
               shape="round"
+              (click)="onStatusChange(task.id, 'ongoing')"
             >In Progress</ion-button>
-            <ion-button color="success" size="small" fill="solid" shape="round">
+            <ion-button
+              color="success"
+              size="small"
+              fill="solid"
+              shape="round"
+              (click)="onStatusChange(task.id, 'finished')"
+            >
               <ion-icon name="checkmark-outline"></ion-icon>
               <span>Done</span>
             </ion-button>
           </p>
         </ion-label>
-        <div *ngIf="type !== 'done'" slot="end">
-          <ion-button fill="clear" (click)="onEditTask(task)">
+        <div slot="end">
+          <ion-button *ngIf="type !== 'done'" fill="clear" (click)="onEditTask(task)">
             <ion-icon name="pencil-outline"></ion-icon>
           </ion-button>
           <ion-button fill="clear" color="danger" (click)="onDeleteTask(task.id)">
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
-        </div>
-        <div *ngIf="type === 'done'" slot="end">
-          <ion-icon style="color: green;" name="checkmark-outline" size="large"></ion-icon>
         </div>
       </ion-item>
     </ion-list>
