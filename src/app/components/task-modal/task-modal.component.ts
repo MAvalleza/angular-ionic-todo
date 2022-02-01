@@ -34,8 +34,8 @@ export class TaskModalComponent implements OnInit {
     if (this.task && this.mode === 'edit') {
       this.name = this.task.name || '';
       this.description = this.task.description || '';
-      this.date = this.task.date.toDate();
-      this.formattedDate = format(this.date, 'MMM dd, yyyy');
+      this.date = this.task.date?.toDate();
+      this.formattedDate = this.date ? format(this.date, 'MMM dd, yyyy') : '';
     }
   }
 
@@ -44,7 +44,7 @@ export class TaskModalComponent implements OnInit {
       name: this.name,
       description: this.description,
       ...this.mode === 'add' && { status: 'pending' },
-      date: new Date(this.date),
+      ...this.date && { date: new Date(this.date) },
     };
     this.dismiss(data);
   }
