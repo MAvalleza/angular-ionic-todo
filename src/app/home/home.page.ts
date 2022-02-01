@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
   pendingTasks: Object[];
   ongoingTasks: Object[];
   finishedTasks: Object[];
+  loading: any;
   constructor(public modalController: ModalController, private store: AngularFirestore,
     public loadingController: LoadingController,
     public toastController: ToastController) {}
@@ -127,14 +128,16 @@ export class HomePage implements OnInit {
   }
 
   async presentLoading () {
-    const loading = await this.loadingController.create({
+    this.loading = await this.loadingController.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    await this.loading.present();
   }
 
   async dismissLoading () {
-    await this.loadingController.dismiss();
+    if (this.loading) {
+      await this.loading.dismiss();
+    }
   }
 
   async presentToast ({ message, color }) {
