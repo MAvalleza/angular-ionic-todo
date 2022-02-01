@@ -3,7 +3,30 @@
     <ion-card-title>{{ title }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <!-- TODO: Add task item -->
-    <p>Tasks list will be here</p>
+    <!-- TODO: Ngfor -->
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2><strong>Pokémon Yellow</strong></h2>
+          <h3>Date</h3>
+          <br>
+          <p>Mark as:
+            <ion-button color="tertiary" size="small" fill="outline" shape="round">Doing</ion-button>
+            <ion-button color="success" size="small" fill="solid" shape="round">
+              <ion-icon name="checkmark-outline"></ion-icon>
+              <span>Done</span>
+            </ion-button>
+          </p>
+        </ion-label>
+        <div slot="end">
+          <ion-button fill="clear">
+            <ion-icon name="pencil-outline"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-item>
+    </ion-list>
   </ion-card-content>
 </ion-card>
