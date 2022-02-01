@@ -1,3 +1,49 @@
 <ion-toolbar [color]="getToolbarColor(mode)">
   <ion-title size="large">{{ mode.toUpperCase() }} TASK </ion-title>
+  <ion-button slot="end" (click)="dismiss()" size="large" fill="clear">
+    <ion-icon name="close-circle-outline" class="close-icon"></ion-icon>
+  </ion-button>
 </ion-toolbar>
+
+<ion-grid style="width: 100%">
+  <ion-row>
+    <ion-col>
+      <!-- Task Name -->
+      <ion-card>
+        <ion-item>
+          <ion-label position="stacked">Task Name</ion-label>
+          <ion-input placeholder="Walk the dogs"></ion-input>
+        </ion-item>
+      </ion-card>
+      <!-- Task Date -->
+      <ion-card>
+        <ion-item>
+          <ion-input [value]="dateValue" placeholder="Select Date"></ion-input>
+          <ion-button fill="clear" id="open-date-input">
+            <ion-icon icon="calendar"></ion-icon>
+          </ion-button>
+          <ion-popover trigger="open-date-input" show-backdrop="false">
+            <ng-template>
+              <ion-datetime
+                #popoverDatetime
+                presentation="date"
+                (ionChange)="dateValue = formatDate(popoverDatetime.value)"
+              ></ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </ion-item>
+      </ion-card>
+      <!-- Task Description -->
+      <ion-card>
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-textarea placeholder="The dogs need their daily exercise so I have to do it!"></ion-textarea>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-end">
+    <ion-button color="success" size="large">Submit</ion-button>
+  </ion-row>
+</ion-grid>
+

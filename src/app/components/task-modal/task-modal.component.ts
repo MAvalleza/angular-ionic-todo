@@ -1,5 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import { ModalController, IonDatetime } from '@ionic/angular';
+import { format, parseISO } from 'date-fns';
 
 const TOOLBAR_COLORS = {
   add: 'primary',
@@ -14,14 +20,18 @@ const TOOLBAR_COLORS = {
 
 export class TaskModalComponent implements OnInit {
   @Input() mode: String;
+  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
+  dateValue = '';
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {}
 
   getToolbarColor (mode) {
-    console.log('mode', mode);
     return TOOLBAR_COLORS[mode];
+  }
+  formatDate(value: string) {
+    return format(parseISO(value), 'MMM dd, yyyy');
   }
   dismiss () {
     this.modalController.dismiss({
