@@ -23,7 +23,6 @@ export class ListsCardComponent implements OnInit {
   ngOnInit() {}
 
   onDeleteTask (taskId) {
-    console.log('delete id', taskId);
     this.onDelete.emit(taskId);
   }
   onEditTask (task) {

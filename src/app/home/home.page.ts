@@ -26,7 +26,6 @@ export class HomePage implements OnInit {
     this.store.collection('todos').snapshotChanges().subscribe((res) => {
       this.todos = res.map(item => Object.assign({ id: item.payload.doc.id }, item.payload.doc.data()));
       this.filterTasks();
-      console.log('todos', this.todos);
     });
   }
 
@@ -58,7 +57,6 @@ export class HomePage implements OnInit {
 
   async deleteTask (taskId) {
     try {
-      console.log('task id to delete', taskId);
       this.presentLoading();
       await this.store.collection('todos').doc(taskId).delete();
       this.presentToast({

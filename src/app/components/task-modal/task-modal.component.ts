@@ -4,7 +4,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { ModalController, IonDatetime } from '@ionic/angular';
+import { ModalController, IonDatetime, ToastController } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 
 const TOOLBAR_COLORS = {
@@ -28,7 +28,7 @@ export class TaskModalComponent implements OnInit {
   date: any;
   
   formattedDate: string = '';
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, public toastController: ToastController) { }
 
   ngOnInit() {
     if (this.task && this.mode === 'edit') {
@@ -40,9 +40,16 @@ export class TaskModalComponent implements OnInit {
   }
 
   onSubmit () {
+    if (!this.name) {
+      this.presentToast({
+        message: 'Please provide a task name',
+        color: 'warning',
+      });
+      return;
+    }
     const data = {
       name: this.name,
-      description: this.description,
+      description: this.description || '',
       ...this.mode === 'add' && { status: 'pending' },
       ...this.date && { date: new Date(this.date) },
     };
@@ -64,6 +71,14 @@ export class TaskModalComponent implements OnInit {
       });
     }
     this.modalController.dismiss();
+  }
+  async presentToast ({ message, color }) {
+    const toast = await this.toastController.create({
+      message,
+      color,
+      duration: 2000
+    });
+    toast.present();
   }
   getToolbarColor (mode) {
     return TOOLBAR_COLORS[mode];
