@@ -1,8 +1,12 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-title>
-      Todo App
+      Almond's Todo App
     </ion-title>
+    <ion-button color="primary" slot="end" (click)="openTaskModal('add')">
+      <ion-icon name="add-outline"></ion-icon>
+      <span>&nbsp;Create Task</span>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -13,14 +17,19 @@
     </ion-toolbar>
   </ion-header>
 
+  
   <div id="container">
     <ion-grid>
       <ion-row>
         <ion-col>
-          <app-lists-card title="Todos" color="dark"></app-lists-card>
+          <app-lists-card type="todos"color="danger"></app-lists-card>
         </ion-col>
         <ion-col>
-          <app-lists-card title="Ongoing" color="tertiary"></app-lists-card>
+          <app-lists-card
+            color="tertiary"
+            type="in-progress"
+          >
+          </app-lists-card>
         </ion-col>
       </ion-row>
     </ion-grid>

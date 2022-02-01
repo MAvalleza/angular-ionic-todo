@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { ListsCardComponent } from '../components/lists-card/lists-card.component';
+import { TaskModalComponent } from '../components/task-modal/task-modal.component';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
@@ -18,6 +19,7 @@ import { HomePageRoutingModule } from './home-routing.module';
   declarations: [
     HomePage,
     ListsCardComponent,
+    TaskModalComponent,
   ]
 })
 export class HomePageModule {}
