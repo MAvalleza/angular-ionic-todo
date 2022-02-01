@@ -9,7 +9,7 @@ import { format, parseISO } from 'date-fns';
 
 const TOOLBAR_COLORS = {
   add: 'primary',
-  update: 'dark',
+  edit: 'dark',
 };
 
 @Component({
@@ -20,6 +20,7 @@ const TOOLBAR_COLORS = {
 
 export class TaskModalComponent implements OnInit {
   @Input() mode: string;
+  @Input() task?: any;
   @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
 
   name: string;
@@ -29,7 +30,14 @@ export class TaskModalComponent implements OnInit {
   formattedDate: string = '';
   constructor(public modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.task && this.mode === 'edit') {
+      this.name = this.task.name || '';
+      this.description = this.task.description || '';
+      this.date = this.task.date.toDate();
+      this.formattedDate = format(this.date, 'MMM dd, yyyy');
+    }
+  }
 
   onSubmit () {
     const data = {
@@ -51,6 +59,7 @@ export class TaskModalComponent implements OnInit {
     if (task) {
       this.modalController.dismiss({
         mode: this.mode,
+        ...this.mode === 'edit' && { updateId: this.task.id },
         taskData: task,
       });
     }

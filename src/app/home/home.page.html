@@ -27,6 +27,7 @@
             color="danger"
             [taskItems]="pendingTasks"
             (onDelete)="deleteTask($event)"
+            (onEdit)="editTask($event)"
           ></app-lists-card>
         </ion-col>
         <ion-col>
@@ -35,6 +36,7 @@
             type="in-progress"
             [taskItems]="ongoingTasks"
             (onDelete)="deleteTask($event)"
+            (onEdit)="editTask($event)"
           >
           </app-lists-card>
         </ion-col>

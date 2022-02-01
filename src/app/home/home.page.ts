@@ -59,15 +59,31 @@ export class HomePage implements OnInit {
     }
   }
 
+  editTask (task) {
+    this.openTaskModal('edit', task);
+  }
+
+  async updateTask (taskId, taskData) {
+    try {
+      this.presentLoading();
+      await this.store.collection('todos').doc(taskId).update(taskData);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.dismissLoading();
+    }
+  }
+
   /**
    * 
    * @param mode - 'add' | 'edit'
    */
-  async openTaskModal (mode: String) {
+  async openTaskModal (mode: String, task: Object) {
     const modal = await this.modalController.create({
       component: TaskModalComponent,
       componentProps: {
         mode,
+        ...task && { task },
       },
       backdropDismiss: false,
       swipeToClose: false,
@@ -75,7 +91,11 @@ export class HomePage implements OnInit {
     await modal.present();
 
     const { data } = await modal.onWillDismiss();
-    if (data?.mode === 'add') this.createTask(data.taskData);
+    if (data?.mode === 'add') {
+      this.createTask(data.taskData);
+    } else if (data?.mode === 'edit' && data?.updateId) {
+      this.updateTask(data.updateId, data.taskData);
+    }
   }
 
   async presentLoading () {

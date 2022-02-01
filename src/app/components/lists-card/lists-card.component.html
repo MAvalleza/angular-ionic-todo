@@ -25,7 +25,7 @@
           </p>
         </ion-label>
         <div *ngIf="type !== 'done'" slot="end">
-          <ion-button fill="clear">
+          <ion-button fill="clear" (click)="onEditTask(task)">
             <ion-icon name="pencil-outline"></ion-icon>
           </ion-button>
           <ion-button fill="clear" color="danger" (click)="onDeleteTask(task.id)">
