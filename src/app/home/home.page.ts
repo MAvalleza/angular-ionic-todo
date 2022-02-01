@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { AngularFirestore } from  '@angular/fire/compat/firestore';
 import { TaskModalComponent } from '../components/task-modal/task-modal.component';
 
 @Component({
@@ -7,8 +8,23 @@ import { TaskModalComponent } from '../components/task-modal/task-modal.componen
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  constructor(public modalController: ModalController) {}
+export class HomePage implements OnInit {
+  todos: any;
+  pendingTasks: Object[];
+  ongoingTasks: Object[];
+  finishedTasks: Object[];
+  constructor(public modalController: ModalController, private store: AngularFirestore) {}
+
+  ngOnInit() {
+    this.getAllTasks();
+  }
+
+  getAllTasks () {
+    this.store.collection('todos').snapshotChanges().subscribe((res) => {
+      this.todos = res.map(item => Object.assign({ id: item.payload.doc.id }, item.payload.doc.data()));
+      console.log('todos', this.todos);
+    });
+  }
 
   /**
    * 
