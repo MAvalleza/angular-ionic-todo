@@ -5,10 +5,11 @@
   <ion-card-content>
     <!-- TODO: Ngfor -->
     <ion-list>
-      <ion-item>
+      <ion-item *ngFor="let task of taskItems">
         <ion-label>
-          <h2><strong>Pokémon Yellow</strong></h2>
-          <h3>Due Date</h3>
+          <h2><strong>{{ task.name }}</strong></h2>
+          <h3><ion-text color="danger">Due Date:</ion-text> {{ formatDate(task.date) }}</h3>
+          <p>{{ task.description }}</p>
           <br>
           <p *ngIf="type !== 'done'">Mark as:
             <ion-button

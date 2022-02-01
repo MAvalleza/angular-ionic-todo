@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../../interface/Task';
+import { format } from 'date-fns';
 
 const TITLE_MAPPINGS = {
   'in-progress': 'In Progress',
@@ -12,7 +12,7 @@ const TITLE_MAPPINGS = {
   styleUrls: ['./lists-card.component.scss'],
 })
 export class ListsCardComponent implements OnInit {
-  @Input () taskItems: Task[];
+  @Input () taskItems: any[];
   @Input () type: string;
   @Input () color: string;
   constructor() { }
@@ -21,5 +21,10 @@ export class ListsCardComponent implements OnInit {
 
   getTitle (type) {
     return TITLE_MAPPINGS[type];
+  }
+
+  formatDate (date) {
+    const parsedDate = date.toDate(); // built in firebase timestamp function
+    return format(parsedDate, 'MMM dd, yyyy');
   }
 }

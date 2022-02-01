@@ -22,12 +22,17 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <app-lists-card type="todos"color="danger"></app-lists-card>
+          <app-lists-card 
+            type="todos"
+            color="danger"
+            [taskItems]="pendingTasks"
+          ></app-lists-card>
         </ion-col>
         <ion-col>
           <app-lists-card
             color="tertiary"
             type="in-progress"
+            [taskItems]="ongoingTasks"
           >
           </app-lists-card>
         </ion-col>
@@ -35,6 +40,7 @@
           <app-lists-card
             color="success"
             type="done"
+            [taskItems]="finishedTasks"
           >
           </app-lists-card>
         </ion-col>
