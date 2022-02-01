@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
     await loading.present();
   }
 
-  dismissLoading () {
-    this.loadingController.dismiss();
+  async dismissLoading () {
+    await this.loadingController.dismiss();
   }
 }
