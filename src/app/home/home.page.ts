@@ -47,6 +47,18 @@ export class HomePage implements OnInit {
     }
   }
 
+  async deleteTask (taskId) {
+    try {
+      console.log('task id to delete', taskId);
+      this.presentLoading();
+      await this.store.collection('todos').doc(taskId).delete();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.dismissLoading();
+    }
+  }
+
   /**
    * 
    * @param mode - 'add' | 'edit'
