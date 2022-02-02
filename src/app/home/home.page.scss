@@ -1,11 +1,8 @@
 #container {
   text-align: center;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 45px;
+  // transform: translateY(-50%);
 }
 
 #container strong {
@@ -30,8 +27,8 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-@media screen and (max-width: 1000px) {
-  #container {
-    top: 60%;
-  }
-}
+// @media screen and (max-width: 1000px) {
+//   #container {
+//     top: 60%;
+//   }
+// }
